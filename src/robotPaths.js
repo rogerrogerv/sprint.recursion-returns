@@ -45,7 +45,9 @@ class RobotPaths {
         return; //^^ out-of-bounds checking
       }
       if (this.board.hasBeenVisited(row, column)) {
+        // eslint-disable-next-line no-useless-return
         return;
+        // eslint-disable-next-line no-else-return
       } else {
         this.board.togglePiece(row, column);
         findPath(row + 1, column); // step Down
