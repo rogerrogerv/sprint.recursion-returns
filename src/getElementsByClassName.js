@@ -1,8 +1,5 @@
-/* eslint-disable prefer-const */
-/* eslint-disable prettier/prettier */
 const getElementsByClassName = (className, node) => {
-  // YOUR CODE HERE
-
+  // Recursively traversing through the DOM, non-nested method solution
   let results = [];
 
   if (!node) {
@@ -13,14 +10,12 @@ const getElementsByClassName = (className, node) => {
 
   if (node.classList && node.classList.contains(className)) {
     results.push(node);
-    //console.log('AAAAAAAAA',node);
   }
 
-  let children = node.childNodes;
+  const children = node.childNodes;
   if (children) {
-    for (let child of children) {
+    for (const child of children) {
       results = results.concat(getElementsByClassName(className, child));
-      //console.log('BBBBBBBBBB',results)
     }
   }
   return results;
@@ -28,6 +23,10 @@ const getElementsByClassName = (className, node) => {
 
 module.exports = { getElementsByClassName };
 
+// *** The code below goes against clean coding standards but was kept ***
+// *** for learning purposes for my partner, similar solution to above ***
+// *** method inside method
+//
 // const getElementsByClassName = (className) => {
 //   let output = []
 //   let dom = document.documentElement
@@ -42,9 +41,6 @@ module.exports = { getElementsByClassName };
 //       })
 //     }
 //   }
-
 //   findClass(dom)
 //   return output
-// };
-
-// module.exports = { getElementsByClassName };
+// }
