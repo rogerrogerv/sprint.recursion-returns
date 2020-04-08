@@ -32,27 +32,31 @@ class RobotPaths {
     this.boardSize = size;
   }
 
-  solve(row, column) {
-    if (row === this.boardSize - 1 && column === this.boardSize - 1) {
-      this.pathCount += 1;
-      return;
-    }
-    if (
-      row < 0 ||
-      row >= this.boardSize ||
-      column < 0 || column >= this.boardSize
-    ) {
-      return;
-    }
-    if (this.board.hasBeenVisited(row, column)) {
-      return;
-    } else {
-      this.board.togglePiece(row, column);
-      this.solve(row + 1, column);
-      this.solve(row, column + 1);
-      this.solve(row - 1, column);
-      this.solve(row, column - 1);
-    }
+  solve() {
+    const findPath = (row, column) => {
+      if (row === this.boardSize - 1 && column === this.boardSize - 1) {
+        this.pathCount += 1;
+        return;
+      }
+      if (
+        row < 0 ||
+        row >= this.boardSize ||
+        column < 0 || column >= this.boardSize
+      ) {
+        return; //^^ out-of-bounds checking
+      }
+      if (this.board.hasBeenVisited(row, column)) {
+        return;
+      } else {
+        this.board.togglePiece(row, column);
+        findPath(row + 1, column); // step Down
+        findPath(row, column + 1); // step Right
+        findPath(row - 1, column); // step Up
+        findPath(row, column - 1); // step Left
+      }
+    };
+
+    findPath(0, 0);
     return this.pathCount;
   }
 }
