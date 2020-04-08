@@ -1,6 +1,3 @@
-/* eslint-disable no-useless-return */
-/* eslint-disable no-else-return */
-/* eslint-disable prettier/prettier */
 class Board {
   constructor(size) {
     this.board = [];
@@ -38,10 +35,12 @@ class RobotPaths {
         this.pathCount += 1;
         return;
       }
+      // eslint-disable-next-line prettier/prettier
       if (
         row < 0 ||
         row >= this.boardSize ||
-        column < 0 || column >= this.boardSize
+        column < 0 ||
+        column >= this.boardSize
       ) {
         return; //^^ out-of-bounds checking
       }
@@ -53,6 +52,7 @@ class RobotPaths {
         findPath(row, column + 1); // step Right
         findPath(row - 1, column); // step Up
         findPath(row, column - 1); // step Left
+        this.board.togglePiece(row, column);
       }
     };
 
