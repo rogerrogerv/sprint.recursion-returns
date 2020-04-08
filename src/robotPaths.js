@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-return */
+/* eslint-disable no-else-return */
+/* eslint-disable prettier/prettier */
 class Board {
   constructor(size) {
     this.board = [];
@@ -25,10 +28,32 @@ class RobotPaths {
     this.board = new Board(size);
     this.row = 0;
     this.col = 0;
+    this.pathCount = 0;
+    this.boardSize = size;
   }
 
-  solve() {
-    // Your code here.
+  solve(row, column) {
+    if (row === this.boardSize - 1 && column === this.boardSize - 1) {
+      this.pathCount += 1;
+      return;
+    }
+    if (
+      row < 0 ||
+      row >= this.boardSize ||
+      column < 0 || column >= this.boardSize
+    ) {
+      return;
+    }
+    if (this.board.hasBeenVisited(row, column)) {
+      return;
+    } else {
+      this.board.togglePiece(row, column);
+      this.solve(row + 1, column);
+      this.solve(row, column + 1);
+      this.solve(row - 1, column);
+      this.solve(row, column - 1);
+    }
+    return this.pathCount;
   }
 }
 
